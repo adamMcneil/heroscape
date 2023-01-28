@@ -6,28 +6,59 @@ using static UnityEngine.UI.CanvasScaler;
 using UnityEngine.SocialPlatforms;
 using System.IO;
 
-
-
 public class CardManager : MonoBehaviour
 {
     public TextAsset jsonFile;
+    private Units units = null;
+    [SerializeField] private GameObject unitCard;
+    private float cardWidth = 150;
+    private float cardHieght = 150;
+    private Vector3 cardPosition = new Vector3(0, Screen.height/2);
+
+    private float scrollSpeed = 7500;
 
     public void Start()
     {
-        //string jsonString = File.ReadAllText(Application.dataPath + "/HeroScapeData/units");
+        MakeUnitArray();
+        DisplayDeckOnCanvas();
+    }
 
-        Units unitInJson = JsonUtility.FromJson<Units>(jsonFile.text);
-        int count = 0;
-        foreach (Unit unit in unitInJson.units)
+    private void Update()
+    {
+        if (CameraController.isPaused)
         {
-            Debug.Log("unit: " + unit.name);
-            count++;
-            foreach (Ability ability in unit.abilities)
-            {
-                Debug.Log(ability.name);
-            }
+            this.transform.position =  this.transform.position + new Vector3(0, Input.mouseScrollDelta.y * scrollSpeed * Time.deltaTime, 0); 
         }
-        Debug.Log(count);
+    }
+
+    private void MakeUnitArray()
+    {
+        units = JsonUtility.FromJson<Units>(jsonFile.text);
+    }
+
+    private void DisplayDeckOnCanvas()
+    {
+
+        foreach (Unit unit in units.units)
+        {
+            GameObject unitCardInstant = Instantiate(unitCard);
+
+            unitCardInstant.transform.parent = this.gameObject.transform;
+            unitCardInstant.transform.position = cardPosition;
+            IncrementCardPosition();
+
+            UnitCardController unitCardController = unitCard.GetComponent<UnitCardController>();
+            unitCardController.SetUnit(unit);
+        }
+    }
+
+    private void IncrementCardPosition()
+    {
+        cardPosition = cardPosition + Vector3.right * cardWidth;
+        if(cardPosition.x > Screen.width)
+        {
+            cardPosition = new Vector3(0, cardPosition.y - cardHieght);
+        }
     }
 }
 
@@ -47,7 +78,7 @@ public class Unit
     public string race;
     public string type;
     public string cardClass;
-    public string personalit;
+    public string personality;
     public int height;
     public int life;
     public int move;

@@ -42,7 +42,7 @@ public class CameraController : MonoBehaviour
     private Vector3 hexToSquare;
     private Vector3 squareToHex;
 
-    private bool isPaused = false;
+    static public bool isPaused = false;
     [SerializeField] private GameObject pauseMenu;
 
     private void Start()
