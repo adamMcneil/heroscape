@@ -79,7 +79,7 @@ public class Unit
     public string type;
     public string cardClass;
     public string personality;
-    public int height;
+    public string height;
     public int life;
     public int move;
     public int range;

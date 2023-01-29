@@ -34,7 +34,14 @@ public class UnitCardController : MonoBehaviour
 
     public void UpdateAblityDescription()
     {
-        abilityDescription.text = myUnit.abilities[dropDownAblities.value].description;
+        if (dropDownAblities.value == 0)
+        {
+            DisplayDiscription();
+        }
+        else
+        {
+            abilityDescription.text = myUnit.abilities[dropDownAblities.value - 1].description;
+        }
     }
 
     public void SetUnit(Unit unit)
@@ -56,13 +63,20 @@ public class UnitCardController : MonoBehaviour
         backGround.color = factionColors[myUnit.general];
 
         dropDownAblities.ClearOptions();
+        
         List<string> ablitiyNameList = new List<string>();
+        ablitiyNameList.Add("Description");
         foreach (Ability ablility in myUnit.abilities)
         {
             ablitiyNameList.Add(ablility.name);
         }
         dropDownAblities.AddOptions(ablitiyNameList);
-        abilityDescription.text = myUnit.abilities[0].description;
+        DisplayDiscription();
 
+    }
+
+    private void DisplayDiscription()
+    {
+        abilityDescription.text = myUnit.race + "\n" + myUnit.type + "\n" + myUnit.cardClass + "\n" + myUnit.personality + "\n" + myUnit.height;
     }
 }
