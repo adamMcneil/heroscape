@@ -156,7 +156,6 @@ public class CameraController : MonoBehaviour
 
         Vector3 newHexPosition = X + Y + Z;
         newHexPosition = new Vector3((float)Math.Round(newHexPosition.x), (float)Math.Round(newHexPosition.y), (float)Math.Round(newHexPosition.z));
-        Debug.Log(newHexPosition);
 
         X = new Vector3(newHexPosition.x, 0, 0);
         Y = new Vector3(0, newHexPosition.y/yScale, 0);
@@ -175,7 +174,6 @@ public class CameraController : MonoBehaviour
         {
             returnObject = rayCastHit.collider.gameObject;
         }
-        Debug.Log(returnObject);
         return returnObject;
     }
 

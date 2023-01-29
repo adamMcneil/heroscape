@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.UI.CanvasScaler;
 
 public class UnitCardController : MonoBehaviour
 {
@@ -13,8 +14,12 @@ public class UnitCardController : MonoBehaviour
     [SerializeField] private Text attackText;
     [SerializeField] private Text defenseText;
     [SerializeField] private Text pointText;
+    [SerializeField] private Text abilityDescription;
+    [SerializeField] private Text count;
     [SerializeField] private Image backGround;
-    Unit unit;
+    [SerializeField] private Dropdown dropDownAblities;
+    public Unit myUnit;
+
 
     static private Dictionary<string, Color> factionColors = new Dictionary<string, Color>()
     {    
@@ -27,22 +32,37 @@ public class UnitCardController : MonoBehaviour
         {"valkrill", new Color(.82f, .70f, .52f) }
     };
 
+    public void UpdateAblityDescription()
+    {
+        abilityDescription.text = myUnit.abilities[dropDownAblities.value].description;
+    }
 
     public void SetUnit(Unit unit)
     {
-        this.unit = unit;
+        this.myUnit = unit;
         UpdataCard();
     }
 
     private void UpdataCard()
     {
-        nameText.text = unit.name;
-        lifeText.text = unit.life.ToString();
-        moveText.text = unit.move.ToString();
-        rangeText.text = unit.range.ToString();
-        attackText.text = unit.attack.ToString();
-        defenseText.text = unit.defense.ToString();
-        pointText.text = unit.points.ToString();
-        backGround.color = factionColors[unit.general];
+        nameText.text = myUnit.name;
+        lifeText.text = myUnit.life.ToString();
+        moveText.text = myUnit.move.ToString();
+        rangeText.text = myUnit.range.ToString();
+        attackText.text = myUnit.attack.ToString();
+        defenseText.text = myUnit.defense.ToString();
+        pointText.text = myUnit.points.ToString();
+        count.text = myUnit.figures.ToString();
+        backGround.color = factionColors[myUnit.general];
+
+        dropDownAblities.ClearOptions();
+        List<string> ablitiyNameList = new List<string>();
+        foreach (Ability ablility in myUnit.abilities)
+        {
+            ablitiyNameList.Add(ablility.name);
+        }
+        dropDownAblities.AddOptions(ablitiyNameList);
+        abilityDescription.text = myUnit.abilities[0].description;
+
     }
 }

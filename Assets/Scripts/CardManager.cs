@@ -11,8 +11,8 @@ public class CardManager : MonoBehaviour
     public TextAsset jsonFile;
     private Units units = null;
     [SerializeField] private GameObject unitCard;
-    private float cardWidth = 150;
-    private float cardHieght = 150;
+    private float cardWidth = 500;
+    private float cardHieght = 150 * 2;
     private Vector3 cardPosition = new Vector3(0, Screen.height/2);
 
     private float scrollSpeed = 7500;
@@ -27,7 +27,7 @@ public class CardManager : MonoBehaviour
     {
         if (CameraController.isPaused)
         {
-            this.transform.position =  this.transform.position + new Vector3(0, Input.mouseScrollDelta.y * scrollSpeed * Time.deltaTime, 0); 
+            this.transform.position =  this.transform.position - new Vector3(0, Input.mouseScrollDelta.y * scrollSpeed * Time.deltaTime, 0); 
         }
     }
 
@@ -89,13 +89,6 @@ public class Unit
     public int figures;
     public int hex;
     public string set;
-    public Ability[] abilities;
-}
-
-[System.Serializable]
-public class Abilities
-
-{
     public Ability[] abilities;
 }
 
