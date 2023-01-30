@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.UI.CanvasScaler;
@@ -19,7 +20,15 @@ public class UnitCardController : MonoBehaviour
     [SerializeField] private Image backGround;
     [SerializeField] private Dropdown dropDownAblities;
     public Unit myUnit;
+    private Vector3 deckPosition;
+    private Vector3 cardPosition = new Vector3(0, Screen.height / 2);
+    private CardManager cardManager;
 
+    private void Start()
+    {
+        cardManager = GetComponentInParent<CardManager>();
+        deckPosition = transform.position;
+    }
 
     static private Dictionary<string, Color> factionColors = new Dictionary<string, Color>()
     {    
@@ -78,5 +87,24 @@ public class UnitCardController : MonoBehaviour
     private void DisplayDiscription()
     {
         abilityDescription.text = myUnit.race + "\n" + myUnit.type + "\n" + myUnit.cardClass + "\n" + myUnit.personality + "\n" + myUnit.height;
+    }
+
+    private void IncrementCardPosition()
+    {
+        cardPosition = cardPosition + Vector3.right * CardManager.cardWidth;
+        if (cardPosition.x > Screen.width)
+        {
+            cardPosition = new Vector3(0, cardPosition.y - CardManager.cardHieght);
+        }
+    }
+
+    public void OnPlayerOneClick()
+    {
+        this.transform.parent = cardManager.playerOneCanvas.transform;
+    }
+
+    public void OnPlayerTwoClick()
+    {
+        this.transform.parent = cardManager.playerTwoCanvas.transform;
     }
 }

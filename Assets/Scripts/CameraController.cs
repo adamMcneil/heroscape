@@ -46,6 +46,8 @@ public class CameraController : MonoBehaviour
 
     static public bool isPaused = false;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject playerOneCanvas;
+    [SerializeField] private GameObject playerTwoCanvas;
 
     [SerializeField] private GameObject level;
 
@@ -160,6 +162,19 @@ public class CameraController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             }
             pauseMenu.SetActive(isPaused);
+        }
+
+        //// Player Canvas ////
+        playerOneCanvas.SetActive(false);
+        if (Input.GetKey(KeyCode.R))
+        {
+            playerOneCanvas.SetActive(true);
+        }
+
+        playerTwoCanvas.SetActive(false);
+        if (Input.GetKey(KeyCode.T))
+        {
+            playerTwoCanvas.SetActive(true);
         }
     }
 

@@ -11,11 +11,14 @@ public class CardManager : MonoBehaviour
     public TextAsset jsonFile;
     private Units units = null;
     [SerializeField] private GameObject unitCard;
-    private float cardWidth = 500;
-    private float cardHieght = 150 * 2;
+    static public float cardWidth = 500;
+    static public float cardHieght = 150 * 2;
     private Vector3 cardPosition = new Vector3(0, Screen.height/2);
 
     private float scrollSpeed = 7500;
+
+    [SerializeField] public GameObject playerOneCanvas;
+    [SerializeField] public GameObject playerTwoCanvas;
 
     public void Start()
     {
@@ -27,7 +30,7 @@ public class CardManager : MonoBehaviour
     {
         if (CameraController.isPaused)
         {
-            this.transform.position =  this.transform.position - new Vector3(0, Input.mouseScrollDelta.y * scrollSpeed * Time.deltaTime, 0); 
+            this.transform.position =  this.transform.position - new Vector3(0, Input.mouseScrollDelta.y * scrollSpeed * Time.deltaTime, 0);
         }
     }
 
