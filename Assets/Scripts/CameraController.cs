@@ -17,8 +17,10 @@ public class CameraController : MonoBehaviour
     private float rotationX;
     private float rotationY;
 
-    private float speed = 0.01f;
-    private float rotationSpeed = 0.5f;
+    private float currentSpeed;
+    private float fastSpeed = 50;
+    private float slowSpeed = 10;
+    private float rotationSpeed = 250;
 
     [SerializeField] private GameObject pointer;
     [SerializeField] private LayerMask layerMask;
@@ -45,8 +47,11 @@ public class CameraController : MonoBehaviour
     static public bool isPaused = false;
     [SerializeField] private GameObject pauseMenu;
 
+    [SerializeField] private GameObject level;
+
     private void Start()
     {
+        currentSpeed = slowSpeed;
         pauseMenu.SetActive(isPaused);
 
         selectedHex = hex;
@@ -62,6 +67,18 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        //// boost /////
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (currentSpeed == slowSpeed)
+            {
+                currentSpeed = fastSpeed;
+            }
+            else
+            {
+                currentSpeed = slowSpeed;
+            }
+        }
         //// movement ////
         forward = Convert.ToSingle(Input.GetKey(KeyCode.W));
         back = -Convert.ToSingle(Input.GetKey(KeyCode.S));
@@ -71,15 +88,16 @@ public class CameraController : MonoBehaviour
         left = -Convert.ToSingle(Input.GetKey(KeyCode.A));
 
         this.transform.position = this.transform.position
-        + this.transform.forward * (forward + back) * speed
-        + this.transform.up * (up + down) * speed
-        + this.transform.right * (right + left) * speed;
+        + (this.transform.forward * (forward + back)
+        + this.transform.up * (up + down) 
+        + this.transform.right * (right + left)) 
+        * (currentSpeed * Time.deltaTime);
 
         //// rotaion ////
         if (!isPaused)
         {
-            rotationX += -Input.GetAxis("Mouse Y") * rotationSpeed;
-            rotationY += Input.GetAxis("Mouse X") * rotationSpeed;
+            rotationX += -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
+            rotationY += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
 
             this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
         }
@@ -95,14 +113,18 @@ public class CameraController : MonoBehaviour
         //// make raycast ////
         if (Input.GetMouseButtonDown(0) && !isPaused)
         {
-            Instantiate(selectedHex, CalculateHexPosition(ShotRayVector3()), Quaternion.identity);
+            Instantiate(selectedHex, CalculateHexPosition(ShotRayVector3()), Quaternion.identity).transform.parent = level.transform;
         }
 
         //// destroy raycast ////
 
         if (Input.GetMouseButtonDown(1) && !isPaused)
         {
-            Destroy(ShotRayGameObject());
+            GameObject hitObject = ShotRayGameObject();
+            if (!hitObject.CompareTag("Floor"))
+            {
+                Destroy(hitObject);
+            }
         }
 
         //// pick up raycast ////
