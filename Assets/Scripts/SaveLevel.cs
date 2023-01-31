@@ -16,11 +16,7 @@ public class SaveLevel : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i< pieces.Length; i++)
-        {
-            nameToObject.Add(piecesName[i], pieces[i]);
-            Debug.Log(piecesName[i]);
-        }
+        MakeDictionary();
     }
 
     private void Update()
@@ -32,6 +28,14 @@ public class SaveLevel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             LoadLevelPieces();
+        }
+    }
+
+    private void MakeDictionary()
+    {
+        for (int i = 0; i < pieces.Length; i++)
+        {
+            nameToObject.Add(piecesName[i], pieces[i]);
         }
     }
 
@@ -58,7 +62,6 @@ public class SaveLevel : MonoBehaviour
         foreach (string jsonString in jsonPieces)
         {
             Piece piece = JsonUtility.FromJson<Piece>(jsonString);
-            Debug.Log(piece.name);
             GameObject madeObject = Instantiate(nameToObject[piece.name]);
             madeObject.transform.position = piece.position;
             madeObject.transform.parent = this.transform;

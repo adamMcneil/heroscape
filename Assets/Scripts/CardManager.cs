@@ -8,26 +8,30 @@ using System.IO;
 
 public class CardManager : MonoBehaviour
 {
+// Import Cards
     public TextAsset jsonFile;
     private Units units = null;
     [SerializeField] private GameObject unitCard;
+
+// Card Placement
     static public float cardWidth = 500;
     static public float cardHieght = 150 * 2;
     private Vector3 cardPosition = new Vector3(0, Screen.height/2);
-
     private float scrollSpeed = 7500;
 
+// Player canvas
     [SerializeField] public GameObject playerOneCanvas;
     [SerializeField] public GameObject playerTwoCanvas;
 
     public void Start()
     {
         MakeUnitArray();
-        DisplayDeckOnCanvas();
+        MakeDeckOnCanvas();
     }
 
     private void Update()
     {
+        //// Scroll ////
         if (CameraController.isPaused)
         {
             this.transform.position =  this.transform.position - new Vector3(0, Input.mouseScrollDelta.y * scrollSpeed * Time.deltaTime, 0);
@@ -39,7 +43,7 @@ public class CardManager : MonoBehaviour
         units = JsonUtility.FromJson<Units>(jsonFile.text);
     }
 
-    private void DisplayDeckOnCanvas()
+    private void MakeDeckOnCanvas()
     {
 
         foreach (Unit unit in units.units)
@@ -50,8 +54,8 @@ public class CardManager : MonoBehaviour
             unitCardInstant.transform.position = cardPosition;
             IncrementCardPosition();
 
-            UnitCardController unitCardController = unitCard.GetComponent<UnitCardController>();
-            unitCardController.SetUnit(unit);
+            CardController cardController = unitCard.GetComponent<CardController>();
+            cardController.SetUnit(unit);
         }
     }
 

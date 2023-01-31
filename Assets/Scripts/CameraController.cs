@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
 {
     private Camera thisCamera;
 
+ // Movement
     private float forward;
     private float back;
     private float up;
@@ -22,49 +23,47 @@ public class CameraController : MonoBehaviour
     private float slowSpeed = 10;
     private float rotationSpeed = 250;
 
+// Pointer
     [SerializeField] private GameObject pointer;
     [SerializeField] private LayerMask layerMask;
 
+// Spawnable prefabs
     [SerializeField] private GameObject hex;
     [SerializeField] private GameObject hex7;
     [SerializeField] private GameObject hex19;
     [SerializeField] private GameObject column;
     [SerializeField] private GameObject figureRed;
     [SerializeField] private GameObject figureBlue;
-    [SerializeField] private Material gray;
-    [SerializeField] private Material green;
-    [SerializeField] private Material blue;
-    [SerializeField] private Material tan;
+
+    [SerializeField] private GameObject level; // The GameObject where all the stuff is spawned
+
     private GameObject selectedHex;
-    private Material selectedMaterial;
     private GameObject selectedFigure;
 
+// Hex grid stuff
     private float squareRoot3 = (float)Math.Sqrt(3);
     private float yScale = 5;
     private Vector3 hexToSquare;
     private Vector3 squareToHex;
 
+// Pause stuff
     static public bool isPaused = false;
+
+// Menus
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject playerOneCanvas;
     [SerializeField] private GameObject playerTwoCanvas;
 
-    [SerializeField] private GameObject level;
 
     private void Start()
     {
         currentSpeed = slowSpeed;
         pauseMenu.SetActive(isPaused);
-
         selectedHex = hex;
-        selectedMaterial = green;
-
         hexToSquare = new Vector3(0.5f, 0, 0.5f * squareRoot3);
         squareToHex = new Vector3(-1/squareRoot3, 0, 2f / squareRoot3);
-
-
-        thisCamera = GetComponent<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
+        thisCamera = GetComponent<Camera>();
     }
 
     private void Update()
@@ -178,6 +177,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    #region Hex Math
     private Vector3 CalculateHexPosition(Vector3 position)
     {
         //  hex to square
@@ -200,6 +200,7 @@ public class CameraController : MonoBehaviour
 
         return X + Y + Z;
     }
+    #endregion
 
     #region ShotRay
     GameObject ShotRayGameObject()
@@ -251,23 +252,6 @@ public class CameraController : MonoBehaviour
     public void OnButtonBlueFigure()
     {
         selectedHex = figureBlue;
-    }
-
-    public void OnButtonClickedGray()
-    {
-        selectedMaterial = gray;
-    }
-    public void OnButtonClickedGreen()
-    {
-        selectedMaterial = green;
-    }
-    public void OnButtonClickedBlue()
-    {
-        selectedMaterial = blue;
-    }
-    public void OnButtonClickedTan()
-    {
-        selectedMaterial = tan;
     }
     #endregion
 }
