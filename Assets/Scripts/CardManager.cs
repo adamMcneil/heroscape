@@ -68,39 +68,3 @@ public class CardManagerLegacy : MonoBehaviour
     }
 }
 
-[System.Serializable]
-public class Units
-
-{
-    public Unit[] units;
-}
-
-[System.Serializable]
-public class Unit
-{
-    public string name;
-    public string image;
-    public string general;
-    public string race;
-    public string type;
-    public string cardClass;
-    public string personality;
-    public string height;
-    public int life;
-    public int move;
-    public int range;
-    public int attack;
-    public int defense;
-    public int points;
-    public int figures;
-    public int hex;
-    public string set;
-    public Ability[] abilities;
-}
-
-[System.Serializable]
-public class Ability
-{
-    public string name;
-    public string description;
-}

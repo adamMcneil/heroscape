@@ -38,7 +38,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private GameObject level; // The GameObject where all the stuff is spawned
 
     private GameObject selectedHex;
-    private GameObject selectedFigure;
+    private GameObject selectedObject;
 
 // Hex grid stuff
     private float squareRoot3 = (float)Math.Sqrt(3);
@@ -122,29 +122,40 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && !isPaused)
         {
             GameObject hitObject = ShotRayGameObject();
-            if (!hitObject.CompareTag("Floor"))
+            try
             {
-                Destroy(hitObject);
+                if (!hitObject.CompareTag("Floor"))
+                {
+                    Destroy(hitObject);
+                }
             }
+            catch { }
         }
 
         //// pick up raycast ////
         if (Input.GetKeyDown(KeyCode.Space) && !isPaused)
         {
             GameObject hitFigure = ShotRayGameObject();
-            if (hitFigure.CompareTag("Figure"))
+            try
             {
-                selectedFigure = hitFigure;
-            }
-            else
-            {
-                try
+                if (hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card"))
                 {
-                    selectedFigure.transform.position = CalculateHexPosition(ShotRayVector3());
+                    selectedObject = hitFigure;
                 }
-                catch { }
-                selectedFigure = null;
+                else
+                {
+                    if (selectedObject.CompareTag("Card"))
+                    {
+                        selectedObject.transform.position = CalculateHexPosition(ShotRayVector3());
+                    }
+                    else
+                    {
+                        selectedObject.transform.position = ShotRayVector3();
+                    }
+                    selectedObject = null;
+                }
             }
+            catch { }
         }
 
         //// pause ////

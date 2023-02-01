@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Figure
   - Floor
+  - Card
   layers:
   - Default
   - TransparentFX

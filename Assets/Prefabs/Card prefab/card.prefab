@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5055991028051060323}
   - component: {fileID: 2080910770187388819}
   - component: {fileID: -4907286268958886788}
+  - component: {fileID: 8617672272032677790}
   m_Layer: 0
   m_Name: card
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,3 +97,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282641b896796684c9be058980e730ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &8617672272032677790
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3341420521608409681}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.67184293, y: 0.6379182, z: 0.0010000003}
+  m_Center: {x: 0.7724715, y: -0.047404002, z: 0.00050000014}
