@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CardController : MonoBehaviour
 {
-    private string path = "";
-    private string fileName = "Acolarh-1";
+    private string path = "Heros\\Braxas\\card\\";
+    private string fileName = "Braxas-1";
     void Start()
     {
-    Debug.Log("here");
-        var cardIMG = Resources.Load<Texture>(fileName);
+    Debug.Log(path + fileName);
+        var cardIMG = Resources.Load<Texture>(path +fileName);
         this.gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", cardIMG);
     }
 }
