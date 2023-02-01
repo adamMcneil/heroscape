@@ -6,12 +6,13 @@ using static UnityEngine.UI.CanvasScaler;
 using UnityEngine.SocialPlatforms;
 using System.IO;
 
-public class CardManager : MonoBehaviour
+public class CardManagerLegacy : MonoBehaviour
 {
 // Import Cards
     public TextAsset jsonFile;
     private Units units = null;
     [SerializeField] private GameObject unitCard;
+    public GameObject onBoardCard;
 
 // Card Placement
     static public float cardWidth = 500;
@@ -54,8 +55,6 @@ public class CardManager : MonoBehaviour
             unitCardInstant.transform.position = cardPosition;
             IncrementCardPosition();
 
-            CardController cardController = unitCard.GetComponent<CardController>();
-            cardController.SetUnit(unit);
         }
     }
 
