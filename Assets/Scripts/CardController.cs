@@ -24,25 +24,28 @@ public class CardController : MonoBehaviour
     {
         var cardIMG = Resources.Load<Texture>(path_1 + myUnit.name + pathCard + myUnit.name + fileEndding);
         this.gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", cardIMG);
-        SpawnFigure();
+        SpawnFigures();
     }
 
-    private void SpawnFigure()
+    private void SpawnFigures()
     {
         if (myUnit.figures == 1)
         {
-            GameObject figureInstant = Instantiate(figurePrefab);
-            figureInstant.transform.SetParent(this.transform);
-            figureInstant.GetComponent<FigureController>().LoadPath(path_1 + myUnit.name + pathObject + myUnit.name);
+            SpawnFigure(path_1 + myUnit.name + pathObject + myUnit.name);
         }
         else
         {
             for (int i = 1; i <= myUnit.figures; i++)
             {
-                GameObject figureInstant = Instantiate(figurePrefab);
-                figureInstant.transform.SetParent(this.transform);
-                figureInstant.GetComponent<FigureController>().LoadPath(path_1 + myUnit.name + pathObject + myUnit.name + i.ToString());
+                SpawnFigure(path_1 + myUnit.name + pathObject + myUnit.name + i.ToString());
             }
         }
+    }
+
+    private void SpawnFigure(string path)
+    {
+        GameObject figureInstant = Instantiate(figurePrefab);
+        figureInstant.transform.SetParent(this.transform);
+        figureInstant.GetComponent<FigureController>().LoadPath(path);
     }
 }

@@ -144,15 +144,22 @@ public class CameraController : MonoBehaviour
                 }
                 else
                 {
-                    if (selectedObject.CompareTag("Card"))
-                    {
-                        selectedObject.transform.position = CalculateHexPosition(ShotRayVector3());
-                    }
-                    else
-                    {
-                        selectedObject.transform.position = ShotRayVector3();
-                    }
+                    selectedObject.transform.position = CalculateHexPosition(ShotRayVector3());
                     selectedObject = null;
+                }
+            }
+            catch { }
+        }
+
+        //// rotate raycast ////
+        if (Input.GetKeyDown(KeyCode.R) && !isPaused)
+        {
+            GameObject hitFigure = ShotRayGameObject();
+            try
+            {
+                if (hitFigure.CompareTag("Figure"))
+                {
+                    hitFigure.GetComponent<FigureController>().RotateFigure();
                 }
             }
             catch { }

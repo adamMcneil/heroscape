@@ -14,15 +14,30 @@ public class FigureController : MonoBehaviour
 
     [SerializeField] private GameObject figurePrefab;
 
+    private int currentRotation = 0;
+
+    private Vector3 scaleVector = new Vector3(0.5f, 0.5f, 0.5f);
+
     public void LoadPath(string path)
     {
         try
         {
             GameObject instance = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
-            //if (instance == null) { Destroy(this.gameObject); }
+            instance.transform.localScale = scaleVector;
             instance.transform.parent = this.transform;
             instance.transform.Rotate(-90, 0, 0);
         }
         catch { }
+    }
+
+    private void FixPosition()
+    {
+        Vector3 parentPostion = this.transform.parent.GetComponent<Transform>().position;
+    }
+
+    public void RotateFigure()
+    {
+        currentRotation += 60;
+        this.transform.rotation = Quaternion.AngleAxis(currentRotation, Vector3.up);
     }
 }
