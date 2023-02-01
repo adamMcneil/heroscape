@@ -46,6 +46,6 @@ public class CardController : MonoBehaviour
     {
         GameObject figureInstant = Instantiate(figurePrefab);
         figureInstant.transform.SetParent(this.transform);
-        figureInstant.GetComponent<FigureController>().LoadPath(path);
+        figureInstant.GetComponent<FigureController>().LoadPath(path, myUnit.general);
     }
 }
