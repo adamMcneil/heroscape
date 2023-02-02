@@ -44,7 +44,7 @@ public class CardAndHeroSpawner : MonoBehaviour
         
     private void IncrementCardPosition()
     {
-        cardPosition = new Vector3(cardPosition.x + cardWidth * 2, 0, cardPosition.z);
+        cardPosition = new Vector3(cardPosition.x + cardWidth, 0, cardPosition.z);
         if (cardPosition.x > numberInRow * cardWidth)
         {
             cardPosition = new Vector3(0, 0, cardPosition.z + cardHieght);

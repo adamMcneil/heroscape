@@ -23,7 +23,7 @@ public class CardController : MonoBehaviour
     private void LoadUnit()
     {
         var cardIMG = Resources.Load<Texture>("Cards\\" + myUnit.name + fileEndding);
-        this.gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", cardIMG);
+        this.gameObject.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", cardIMG);
         SpawnFigures();
     }
 
