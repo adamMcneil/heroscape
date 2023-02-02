@@ -21,7 +21,7 @@ public class SaveLevel : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
         {
             SaveLevelPieces();
         }

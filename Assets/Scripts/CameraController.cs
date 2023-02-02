@@ -21,9 +21,9 @@ public class CameraController : MonoBehaviour
     private float currentSpeed;
     private float fastSpeed = 50;
     private float slowSpeed = 10;
-    private float rotationSpeed = 50;
+    private float rotationSpeed = 0.5f;
 
-// Pointer
+// Pointer  
     [SerializeField] private GameObject pointer;
     [SerializeField] private LayerMask layerMask;
 
@@ -97,8 +97,8 @@ public class CameraController : MonoBehaviour
         //// rotaion ////
         if (!isPaused)
         {
-            rotationX += -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
-            rotationY += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+            rotationX += -Input.GetAxis("Mouse Y") * rotationSpeed;
+            rotationY += Input.GetAxis("Mouse X") * rotationSpeed;
 
             this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
         }
@@ -119,7 +119,7 @@ public class CameraController : MonoBehaviour
 
         //// destroy raycast ////
 
-        if (Input.GetMouseButtonDown(1) && !isPaused)
+        if (Input.GetKeyDown(KeyCode.Space) && !isPaused)
         {
             GameObject hitObject = ShotRayGameObject();
             try
@@ -133,7 +133,7 @@ public class CameraController : MonoBehaviour
         }
 
         //// pick up raycast ////
-        if (Input.GetKeyDown(KeyCode.Space) && !isPaused)
+        if (Input.GetMouseButton(1) && !isPaused)
         {
             GameObject hitFigure = ShotRayGameObject();
             try
@@ -179,19 +179,6 @@ public class CameraController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             }
             pauseMenu.SetActive(isPaused);
-        }
-
-        //// Player Canvas ////
-        playerOneCanvas.SetActive(false);
-        if (Input.GetKey(KeyCode.R))
-        {
-            playerOneCanvas.SetActive(true);
-        }
-
-        playerTwoCanvas.SetActive(false);
-        if (Input.GetKey(KeyCode.T))
-        {
-            playerTwoCanvas.SetActive(true);
         }
     }
 
