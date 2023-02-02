@@ -22,7 +22,7 @@ public class CardController : MonoBehaviour
 
     private void LoadUnit()
     {
-        var cardIMG = Resources.Load<Texture>(path_1 + myUnit.name + pathCard + myUnit.name + fileEndding);
+        var cardIMG = Resources.Load<Texture>("Cards\\" + myUnit.name + fileEndding);
         this.gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", cardIMG);
         SpawnFigures();
     }
@@ -31,13 +31,13 @@ public class CardController : MonoBehaviour
     {
         if (myUnit.figures == 1)
         {
-            SpawnFigure(path_1 + myUnit.name + pathObject + myUnit.name);
+            SpawnFigure("Figures\\" + myUnit.name);
         }
         else
         {
             for (int i = 1; i <= myUnit.figures; i++)
             {
-                SpawnFigure(path_1 + myUnit.name + pathObject + myUnit.name + i.ToString());
+                SpawnFigure("Figures\\" + myUnit.name + i.ToString());
             }
         }
     }

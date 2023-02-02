@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     private float currentSpeed;
     private float fastSpeed = 50;
     private float slowSpeed = 10;
-    private float rotationSpeed = 250;
+    private float rotationSpeed = 50;
 
 // Pointer
     [SerializeField] private GameObject pointer;
