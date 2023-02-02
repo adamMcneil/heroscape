@@ -6,12 +6,6 @@ using UnityEngine;
 
 public class FigureController : MonoBehaviour
 {
-    private string path_1 = "Heros\\";
-    private string path_2 = "\\obj\\"; 
-
-    private Unit myUnit;
-    private int squadNumber = -1;
-
     [SerializeField] private GameObject figurePrefab;
 
     private int currentRotation = 0;

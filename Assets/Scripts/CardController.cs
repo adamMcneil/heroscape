@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class CardController : MonoBehaviour
 {
-    private string path_1 = "Heros\\";
-    private string pathCard = "\\card\\";
-    private string pathObject = "\\obj\\";
     private string fileEndding = "-1";
 
     private Unit myUnit;
@@ -29,7 +26,6 @@ public class CardController : MonoBehaviour
 
     public void SpawnFigures()
     {
-        Debug.Log("called spawn figures");
         if (myUnit.figures == 1)
         {
             SpawnFigure("Figures\\" + myUnit.name);

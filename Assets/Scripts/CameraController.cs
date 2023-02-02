@@ -32,8 +32,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] private GameObject hex7;
     [SerializeField] private GameObject hex19;
     [SerializeField] private GameObject column;
-    [SerializeField] private GameObject figureRed;
-    [SerializeField] private GameObject figureBlue;
+    [SerializeField] private GameObject road;
+    [SerializeField] private GameObject water;
+    [SerializeField] private GameObject tree;
+
 
     [SerializeField] private GameObject level; // The GameObject where all the stuff is spawned
 
@@ -133,7 +135,7 @@ public class CameraController : MonoBehaviour
         }
 
         //// pick up raycast ////
-        if (Input.GetMouseButton(1) && !isPaused)
+        if (Input.GetMouseButtonDown(1) && !isPaused)
         {
             GameObject hitFigure = ShotRayGameObject();
             try
@@ -165,7 +167,7 @@ public class CameraController : MonoBehaviour
             catch { }
         }
 
-        //// rotate raycast ////
+        //// make raycast ////
         if (Input.GetKeyDown(KeyCode.M) && !isPaused)
         {
             GameObject hitCard = ShotRayGameObject();
@@ -173,7 +175,6 @@ public class CameraController : MonoBehaviour
             {
                 if (hitCard.CompareTag("Card"))
                 {
-                    Debug.Log("hit card");
                     hitCard.GetComponent<CardController>().SpawnFigures();
                 }
             }
@@ -265,13 +266,17 @@ public class CameraController : MonoBehaviour
     {
         selectedHex = column;
     }
-    public void OnButtonRedFigure()
+    public void OnButtonWater()
     {
-        selectedHex = figureRed;
+        selectedHex = water;
     }
-    public void OnButtonBlueFigure()
+    public void OnButtonRoad()
     {
-        selectedHex = figureBlue;
+        selectedHex = road;
+    }
+    public void OnButtonTree()
+    {
+        selectedHex = tree;
     }
     #endregion
 }
