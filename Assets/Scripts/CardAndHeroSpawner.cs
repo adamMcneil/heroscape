@@ -34,21 +34,14 @@ public class CardAndHeroSpawner : MonoBehaviour
         {
             GameObject cardInstant = Instantiate(cardPrefab);
             cardInstant.GetComponent<CardController>().SetUnit(unit);
-            GameObject figureInstant = Instantiate(figurePrefab);
-            figureInstant.GetComponent<FigureController>().SetUnit(unit);
-
             cardInstant.transform.position = cardPosition;
-            cardInstant.transform.parent = this.gameObject.transform;
-
-            figureInstant.transform.position = cardPosition;
-            figureInstant.transform.parent = this.gameObject.transform;
-
+            cardInstant.transform.SetParent(this.transform);
 
             IncrementCardPosition();
 
         }
     }
-
+        
     private void IncrementCardPosition()
     {
         cardPosition = new Vector3(cardPosition.x + cardWidth * 2, 0, cardPosition.z);
