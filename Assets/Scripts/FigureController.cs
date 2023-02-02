@@ -39,6 +39,7 @@ public class FigureController : MonoBehaviour
             GameObject instance = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
             instance.transform.localScale = scaleVector;
             instance.transform.parent = this.transform;
+            instance.transform.localPosition = Vector3.zero;
             instance.transform.Rotate(-90, 0, 0);
             instance.GetComponentInChildren<MeshRenderer>().material.color = factionToColor[faction];
         }

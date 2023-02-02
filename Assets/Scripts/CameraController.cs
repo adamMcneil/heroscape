@@ -148,7 +148,7 @@ public class CameraController : MonoBehaviour
                     selectedObject = null;
                 }
             }
-            catch { }
+            catch { selectedObject = null; }
         }
 
         //// rotate raycast ////
@@ -160,6 +160,21 @@ public class CameraController : MonoBehaviour
                 if (hitFigure.CompareTag("Figure"))
                 {
                     hitFigure.GetComponent<FigureController>().RotateFigure();
+                }
+            }
+            catch { }
+        }
+
+        //// rotate raycast ////
+        if (Input.GetKeyDown(KeyCode.M) && !isPaused)
+        {
+            GameObject hitCard = ShotRayGameObject();
+            try
+            {
+                if (hitCard.CompareTag("Card"))
+                {
+                    Debug.Log("hit card");
+                    hitCard.GetComponent<CardController>().SpawnFigures();
                 }
             }
             catch { }

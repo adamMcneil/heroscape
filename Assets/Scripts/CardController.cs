@@ -14,7 +14,7 @@ public class CardController : MonoBehaviour
 
     [SerializeField] private GameObject figurePrefab;
 
-    public void SetUnit(Unit unit)
+    public void SetUnit(Unit unit)      
     {
         myUnit = unit;
         LoadUnit();
@@ -24,11 +24,12 @@ public class CardController : MonoBehaviour
     {
         var cardIMG = Resources.Load<Texture>("Cards\\" + myUnit.name + fileEndding);
         this.gameObject.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", cardIMG);
-        SpawnFigures();
+        //SpawnFigures();
     }
 
-    private void SpawnFigures()
+    public void SpawnFigures()
     {
+        Debug.Log("called spawn figures");
         if (myUnit.figures == 1)
         {
             SpawnFigure("Figures\\" + myUnit.name);
@@ -46,6 +47,7 @@ public class CardController : MonoBehaviour
     {
         GameObject figureInstant = Instantiate(figurePrefab);
         figureInstant.transform.SetParent(this.transform);
+        figureInstant.transform.localPosition = Vector3.zero;
         figureInstant.GetComponent<FigureController>().LoadPath(path, myUnit.general);
     }
 }
