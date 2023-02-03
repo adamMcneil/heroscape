@@ -3,13 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SaveLevel : MonoBehaviour
 {
     private const string SAVE_SEPARATOR = "#SAVE_SEPARATOR#";
     [SerializeField] private GameObject[] pieces;
-    private string[] piecesName = {"Hex(Clone)", "Hex7(Clone)", "Hex19(Clone)", "Column(Clone)", "Figure Red(Clone)", "Figure Blue(Clone)"};
-    private string saveFileName = "/heroscape_save_file.txt";
+    [SerializeField] private InputField saveFileInput;
+    [SerializeField] private InputField loadFileInput;
+    private string[] piecesName = {"Hex(Clone)", "Hex7(Clone)", "Hex19(Clone)", "Column(Clone)", "Road(Clone)", "Water(Clone)"};
+    private string path = "\\SaveFiles\\";
+    private string fileExtention = ".txt";
 
 
     static private Dictionary<string, GameObject> nameToObject = new Dictionary<string, GameObject>();
@@ -17,18 +21,6 @@ public class SaveLevel : MonoBehaviour
     private void Start()
     {
         MakeDictionary();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
-        {
-            SaveLevelPieces();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            LoadLevelPieces();
-        }
     }
 
     private void MakeDictionary()
@@ -39,33 +31,44 @@ public class SaveLevel : MonoBehaviour
         }
     }
 
-    private void SaveLevelPieces()
+    public void SaveLevelPieces()
     {
-        List<string> jsonPieces = new List<string>();
-        foreach (Transform pieceGameObject in GetComponentsInChildren<Transform>())
+        try
         {
-            if (pieceGameObject.name == "Level" || pieceGameObject.parent != this.transform)
+            List<string> jsonPieces = new List<string>();
+            foreach (Transform pieceGameObject in GetComponentsInChildren<Transform>())
             {
-                continue;
+                if (pieceGameObject.name == "Level" || pieceGameObject.parent != this.transform)
+                {
+                    continue;
+                }
+                Piece piece = new Piece(pieceGameObject.name, pieceGameObject.transform.position);
+                jsonPieces.Add(JsonUtility.ToJson(piece));
             }
-            Piece piece = new Piece(pieceGameObject.name, pieceGameObject.transform.position);
-            jsonPieces.Add(JsonUtility.ToJson(piece));
+            string saveString = string.Join(SAVE_SEPARATOR, jsonPieces);
+            File.WriteAllText(Application.dataPath + path + saveFileInput.text + fileExtention, saveString);
+            Debug.Log(saveFileInput.text);
         }
-        string saveString = string.Join(SAVE_SEPARATOR, jsonPieces);
-        File.WriteAllText(Application.dataPath + saveFileName, saveString);
+        catch { Debug.Log("file did not save correctly"); }
     }
 
-    private void LoadLevelPieces()
+    public void LoadLevelPieces()
     {
-        string saveString = File.ReadAllText(Application.dataPath + saveFileName);
-        string[] jsonPieces = saveString.Split(new[] { SAVE_SEPARATOR }, System.StringSplitOptions.None);
-        foreach (string jsonString in jsonPieces)
+        try
         {
-            Piece piece = JsonUtility.FromJson<Piece>(jsonString);
-            GameObject madeObject = Instantiate(nameToObject[piece.name]);
-            madeObject.transform.position = piece.position;
-            madeObject.transform.parent = this.transform;
+            string saveString = File.ReadAllText(Application.dataPath + path + loadFileInput.text + fileExtention);
+            string[] jsonPieces = saveString.Split(new[] { SAVE_SEPARATOR }, System.StringSplitOptions.None);
+            foreach (string jsonString in jsonPieces)
+            {
+                Piece piece = JsonUtility.FromJson<Piece>(jsonString);
+                GameObject madeObject = Instantiate(nameToObject[piece.name]);
+                madeObject.transform.position = piece.position;
+                madeObject.transform.parent = this.transform;
+            }
+            Debug.Log(loadFileInput.text);
+
         }
+        catch { Debug.Log("file did not load correctly"); }
     }
 }
 

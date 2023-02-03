@@ -1438,7 +1438,7 @@
 			"name": "Morsbane",
 			"image": "morsbane.jpg",
 			"general": "ullar",
-			"race": "elf",
+			"race": "elf",		
 			"type": "unique hero",
 			"cardClass": "wizard",
 			"personality": "tricky",
@@ -4929,10 +4929,6 @@
 				{
 					"name": "Lava Resistant",
 					"description": "This Iron Golem never rolls for molten lava damage or lava field damage, and it does not have to stop on molten lava spaces."
-				},
-				{
-					"name": "Flying",
-					"description": "When counting spaces for Raelin's movement, ignore elevations. Raelin may fly over water without stopping, pass over figures without becoming engaged, and fly over obstacles such as ruins. When Raelin starts to fly, if she is engaged she will take any leaving engagement attacks."
 				}
 			]
 		},
