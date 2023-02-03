@@ -50,8 +50,9 @@ public class CameraController : MonoBehaviour
 
 // Pause stuff
     static public bool isPaused = false;
+    static public bool isBuilding = false;
 
-// Menus
+    // Menus
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject playerOneCanvas;
     [SerializeField] private GameObject playerTwoCanvas;
@@ -114,14 +115,14 @@ public class CameraController : MonoBehaviour
         }
 
         //// make raycast ////
-        if (Input.GetMouseButtonDown(0) && !isPaused)
+        if (Input.GetMouseButtonDown(0) && !isPaused && isBuilding)
         {
             Instantiate(selectedHex, CalculateHexPosition(ShotRayVector3()), Quaternion.identity).transform.parent = level.transform;
         }
 
         //// destroy raycast ////
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isPaused)
+        if (Input.GetMouseButtonDown(1) && !isPaused)
         {
             GameObject hitObject = ShotRayGameObject();
             try
@@ -135,7 +136,7 @@ public class CameraController : MonoBehaviour
         }
 
         //// pick up raycast ////
-        if (Input.GetMouseButtonDown(1) && !isPaused)
+        if (Input.GetMouseButtonDown(0) && !isPaused && !isBuilding)
         {
             GameObject hitFigure = ShotRayGameObject();
             try
@@ -195,6 +196,12 @@ public class CameraController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             }
             pauseMenu.SetActive(isPaused);
+        }
+
+        //// pause ////
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            isBuilding = !isBuilding;
         }
     }
 

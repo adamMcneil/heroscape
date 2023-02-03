@@ -26,7 +26,7 @@ public class FigureController : MonoBehaviour
     };
 
 
-    public void LoadPath(string path, string faction)
+    public void LoadPath(string path, string faction, int height)
     {
         try
         {
@@ -36,6 +36,9 @@ public class FigureController : MonoBehaviour
             instance.transform.localPosition = Vector3.zero;
             instance.transform.Rotate(-90, 0, 0);
             instance.GetComponentInChildren<MeshRenderer>().material.color = factionToColor[faction];
+            Debug.Log(height);
+            GetComponent<BoxCollider>().size = new Vector3(0.75f, height/5, 0.75f);
+            GetComponent<BoxCollider>().center = new Vector3(0, height/10, 0);
         }
         catch { }
     }

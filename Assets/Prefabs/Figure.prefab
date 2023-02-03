@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9019089536669513770}
   - component: {fileID: 2934183305634420865}
-  - component: {fileID: 5959344885711966531}
+  - component: {fileID: 8803057838501135842}
   m_Layer: 0
   m_Name: Figure
   m_TagString: Figure
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   figurePrefab: {fileID: 3646432152202028534}
   mat: {fileID: 2100000, guid: 67b69af0089fcf141bba8ef7e71cfc17, type: 2}
---- !u!136 &5959344885711966531
+--- !u!136 &8803057838501135842
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,6 +58,6 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1.5517658
+  m_Height: 1.2671249
   m_Direction: 1
-  m_Center: {x: 0, y: 0.2758829, z: 0}
+  m_Center: {x: 0, y: 0.4697541, z: 0}

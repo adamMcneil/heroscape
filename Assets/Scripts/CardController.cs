@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -44,6 +45,6 @@ public class CardController : MonoBehaviour
         GameObject figureInstant = Instantiate(figurePrefab);
         figureInstant.transform.SetParent(this.transform);
         figureInstant.transform.localPosition = Vector3.zero;
-        figureInstant.GetComponent<FigureController>().LoadPath(path, myUnit.general);
+        figureInstant.GetComponent<FigureController>().LoadPath(path, myUnit.general, Int32.Parse(myUnit.height.Split(' ')[1]));
     }
 }
