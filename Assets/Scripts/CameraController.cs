@@ -71,6 +71,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+
         //// boost /////
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -141,7 +142,7 @@ public class CameraController : MonoBehaviour
             GameObject hitFigure = ShotRayGameObject();
             try
             {
-                if (hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card"))
+                if (hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card") || hitFigure.CompareTag("DamageCounter"))
                 {
                     selectedObject = hitFigure;
                 }
