@@ -28,18 +28,12 @@ public class CameraController : MonoBehaviourPun
     [SerializeField] private LayerMask layerMask;
 
 // Spawnable prefabs
-    [SerializeField] private GameObject hex;
-    [SerializeField] private GameObject hex7;
-    [SerializeField] private GameObject hex19;
-    [SerializeField] private GameObject column;
-    [SerializeField] private GameObject road;
-    [SerializeField] private GameObject water;
-    [SerializeField] private GameObject tree;
+
 
 
     private GameObject level; // The GameObject where all the stuff is spawned
 
-    private GameObject selectedHex;
+    static public GameObject selectedHex;
     private GameObject selectedObject;
 
 // Hex grid stuff
@@ -69,7 +63,6 @@ public class CameraController : MonoBehaviourPun
 
             currentSpeed = slowSpeed;
             pauseMenu.SetActive(isPaused);
-            selectedHex = hex;
             hexToSquare = new Vector3(0.5f, 0, 0.5f * squareRoot3);
             squareToHex = new Vector3(-1/squareRoot3, 0, 2f / squareRoot3);
             Cursor.lockState = CursorLockMode.Locked;
@@ -274,36 +267,7 @@ public class CameraController : MonoBehaviourPun
 
     #endregion
 
-    #region On Click Events
-    public void OnButtonClickedOne()
-    {
-        selectedHex = hex;
-    }
-    public void OnButtonClickedSeven()
-    {
-        selectedHex = hex7;
-    }
-    public void OnButtonClicked19()
-    {
-        selectedHex = hex19;
-    }
-    public void OnButtonClickedColumn()
-    {
-        selectedHex = column;
-    }
-    public void OnButtonWater()
-    {
-        selectedHex = water;
-    }
-    public void OnButtonRoad()
-    {
-        selectedHex = road;
-    }
-    public void OnButtonTree()
-    {
-        selectedHex = tree;
-    }
-    #endregion
+
 }
 
 

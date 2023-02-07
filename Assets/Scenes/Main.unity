@@ -2977,8 +2977,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+      - m_Target: {fileID: 8077574158893361173}
+        m_TargetAssemblyTypeName: TileChanger, Assembly-CSharp
         m_MethodName: OnButtonClickedColumn
         m_Mode: 1
         m_Arguments:
@@ -3191,8 +3191,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+      - m_Target: {fileID: 8077574158893361173}
+        m_TargetAssemblyTypeName: TileChanger, Assembly-CSharp
         m_MethodName: OnButtonClickedOne
         m_Mode: 1
         m_Arguments:
@@ -3752,8 +3752,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+      - m_Target: {fileID: 8077574158893361173}
+        m_TargetAssemblyTypeName: TileChanger, Assembly-CSharp
         m_MethodName: OnButtonClicked19
         m_Mode: 1
         m_Arguments:
@@ -5582,8 +5582,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+      - m_Target: {fileID: 8077574158893361173}
+        m_TargetAssemblyTypeName: TileChanger, Assembly-CSharp
         m_MethodName: OnButtonClickedSeven
         m_Mode: 1
         m_Arguments:
@@ -5796,8 +5796,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+      - m_Target: {fileID: 8077574158893361173}
+        m_TargetAssemblyTypeName: TileChanger, Assembly-CSharp
         m_MethodName: OnButtonWater
         m_Mode: 1
         m_Arguments:
@@ -5930,8 +5930,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+      - m_Target: {fileID: 8077574158893361173}
+        m_TargetAssemblyTypeName: TileChanger, Assembly-CSharp
         m_MethodName: OnButtonRoad
         m_Mode: 1
         m_Arguments:
@@ -5980,3 +5980,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084571040}
   m_CullTransparentMesh: 1
+--- !u!1001 &8077574158893361172
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.7489848
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.298492
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.571631
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154458471649920807, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189730301905003193, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+      propertyPath: m_Name
+      value: Tile Changer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+--- !u!114 &8077574158893361173 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5309749506852173742, guid: 70b6f4d365c886c42954f5708b404105, type: 3}
+  m_PrefabInstance: {fileID: 8077574158893361172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c84172ef9af6f147b8b35acd0d9543b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
