@@ -50,13 +50,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 19
-  hex: {fileID: 1320501535373342, guid: 88d6135510f32df49aeb43b51172cc52, type: 3}
-  hex7: {fileID: 1073648702504343876, guid: 39bc6128660a61847994d64731d614a4, type: 3}
-  hex19: {fileID: 3257534785815728450, guid: 14cef30fdc3f4a04a9be1bba13896fd4, type: 3}
-  column: {fileID: 3297676097860731970, guid: aa340477b02c29e479604b4a10b0cb87, type: 3}
-  road: {fileID: 4199067426425176383, guid: 0223134626a2e164eaff15a66aaf9f4d, type: 3}
-  water: {fileID: 5729885142536322454, guid: af386ca4120b75743b45377444c30e8c, type: 3}
-  tree: {fileID: 2931700166659152180, guid: 79c1d3ea39639d346b03fefcbb3a1bf1, type: 3}
 --- !u!114 &-2603487279510751133
 MonoBehaviour:
   m_ObjectHideFlags: 0

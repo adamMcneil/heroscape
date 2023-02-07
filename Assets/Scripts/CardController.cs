@@ -25,7 +25,7 @@ public class CardController : MonoBehaviourPun
     public void SetUnitServer(Unit unit)
     {
         myUnit = unit;
-        photonView.RPC("SyncPicureRPC", RpcTarget.All, JsonUtility.ToJson(unit));
+        photonView.RPC("SyncPicureRPC", RpcTarget.AllBuffered, JsonUtility.ToJson(unit));
         LoadUnit();
     }
 

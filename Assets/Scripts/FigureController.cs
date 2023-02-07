@@ -33,13 +33,14 @@ public class FigureController : MonoBehaviourPun
         try
         {
             GameObject instance = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
+
+            //GetComponent<MeshCollider>().sharedMesh = instance.GetComponent<MeshFilter>().sharedMesh;
             instance.transform.localScale = scaleVector;
             instance.transform.parent = this.transform;
             instance.transform.position = position;
             instance.transform.Rotate(-90, 0, 0);
             instance.GetComponentInChildren<MeshRenderer>().material.color = factionToColor[faction];
-            photonView.RPC("LoadPathRPC", RpcTarget.All, path, faction, position);
-
+            photonView.RPC("LoadPathRPC", RpcTarget.AllBuffered, path, faction, position);
         }
         catch { }
     }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TileChanger : MonoBehaviour
 {
@@ -12,6 +11,10 @@ public class TileChanger : MonoBehaviour
     [SerializeField] private GameObject road;
     [SerializeField] private GameObject water;
     [SerializeField] private GameObject tree;
+    [SerializeField] private GameObject rock1;
+    [SerializeField] private GameObject rock3;
+    [SerializeField] private GameObject rock6;
+
     #region On Click Events
     public void OnButtonClickedOne()
     {
@@ -40,6 +43,18 @@ public class TileChanger : MonoBehaviour
     public void OnButtonTree()
     {
         CameraController.selectedHex = tree;
+    }
+    public void OnButtonRock1()
+    {
+        CameraController.selectedHex = rock1;
+    }
+    public void OnButtonRock3()
+    {
+        CameraController.selectedHex = rock3;
+    }
+    public void OnButtonRock6()
+    {
+        CameraController.selectedHex = rock6;
     }
     #endregion
 }

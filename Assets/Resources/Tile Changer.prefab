@@ -51,3 +51,6 @@ MonoBehaviour:
   road: {fileID: 4199067426425176383, guid: 0223134626a2e164eaff15a66aaf9f4d, type: 3}
   water: {fileID: 5729885142536322454, guid: af386ca4120b75743b45377444c30e8c, type: 3}
   tree: {fileID: 0}
+  rock1: {fileID: 8938665505099812911, guid: b2adab4110bb274488442b9878742009, type: 3}
+  rock3: {fileID: 1183905500464252562, guid: f1c7a525920098d4d926f4530186890c, type: 3}
+  rock6: {fileID: 3875352557466187071, guid: bb217c9df65d923489ddb25e25ef34ba, type: 3}

@@ -12,25 +12,10 @@ public class SaveLevel : MonoBehaviour
     [SerializeField] private GameObject[] pieces;
     [SerializeField] private InputField saveFileInput;
     [SerializeField] private InputField loadFileInput;
-    private string[] piecesName = {"Hex(Clone)", "Hex7(Clone)", "Hex19(Clone)", "Column(Clone)", "Road(Clone)", "Water(Clone)"};
     private string path = "\\SaveFiles\\";
     private string fileExtention = ".txt";
 
 
-    static private Dictionary<string, GameObject> nameToObject = new Dictionary<string, GameObject>();
-
-    private void Start()
-    {
-        MakeDictionary();
-    }
-
-    private void MakeDictionary()
-    {
-        for (int i = 0; i < pieces.Length; i++)
-        {
-            nameToObject.Add(piecesName[i], pieces[i]);
-        }
-    }
 
     public void SaveLevelPieces()
     {
@@ -43,7 +28,7 @@ public class SaveLevel : MonoBehaviour
                 {
                     continue;
                 }
-                Piece piece = new Piece(pieceGameObject.name, pieceGameObject.transform.position);
+                Piece piece = new Piece(pieceGameObject.name.Replace("(Clone)", ""), pieceGameObject.transform.position);
                 jsonPieces.Add(JsonUtility.ToJson(piece));
             }
             string saveString = string.Join(SAVE_SEPARATOR, jsonPieces);
@@ -62,7 +47,7 @@ public class SaveLevel : MonoBehaviour
             foreach (string jsonString in jsonPieces)
             {
                 Piece piece = JsonUtility.FromJson<Piece>(jsonString);
-                GameObject madeObject = PhotonNetwork.Instantiate(nameToObject[piece.name].name, piece.position, Quaternion.identity);
+                GameObject madeObject = PhotonNetwork.Instantiate(piece.name, piece.position, Quaternion.identity);
                 madeObject.transform.parent = this.transform;
             }
             Debug.Log(loadFileInput.text);

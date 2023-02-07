@@ -128,7 +128,7 @@ public class CameraController : MonoBehaviourPun
                 GameObject hitObject = ShotRayGameObject();
                 //try
                 //{
-                    if (!hitObject.CompareTag("Floor"))
+                    if (!hitObject.CompareTag("Floor") && !hitObject.CompareTag("Card") && !hitObject.CompareTag("Figure"))
                     {
                         if (hitObject.GetComponent<PhotonView>() != null)
                         {
