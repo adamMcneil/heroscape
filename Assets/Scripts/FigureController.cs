@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.UIElements;
 
-public class FigureController : MonoBehaviour
+public class FigureController : MonoBehaviourPun
 {
     [SerializeField] private GameObject figurePrefab;
 
@@ -26,19 +28,33 @@ public class FigureController : MonoBehaviour
     };
 
 
-    public void LoadPath(string path, string faction, int height)
+    public void LoadPath(string path, string faction, Vector3 position)
     {
         try
         {
             GameObject instance = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
             instance.transform.localScale = scaleVector;
             instance.transform.parent = this.transform;
-            instance.transform.localPosition = Vector3.zero;
+            instance.transform.position = position;
             instance.transform.Rotate(-90, 0, 0);
             instance.GetComponentInChildren<MeshRenderer>().material.color = factionToColor[faction];
-            Debug.Log(height);
-            GetComponent<BoxCollider>().size = new Vector3(0.75f, height/5, 0.75f);
-            GetComponent<BoxCollider>().center = new Vector3(0, height/10, 0);
+            photonView.RPC("LoadPathRPC", RpcTarget.All, path, faction, position);
+
+        }
+        catch { }
+    }
+
+    [PunRPC]
+    void LoadPathRPC(string path, string faction, Vector3 position)
+    {
+        try
+        {
+            GameObject instance = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
+            instance.transform.localScale = scaleVector;
+            instance.transform.parent = this.transform;
+            instance.transform.position = position;
+            instance.transform.Rotate(-90, 0, 0);
+            instance.GetComponentInChildren<MeshRenderer>().material.color = factionToColor[faction];
         }
         catch { }
     }

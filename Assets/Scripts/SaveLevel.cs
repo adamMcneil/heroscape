@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class SaveLevel : MonoBehaviour
 {
@@ -61,8 +62,7 @@ public class SaveLevel : MonoBehaviour
             foreach (string jsonString in jsonPieces)
             {
                 Piece piece = JsonUtility.FromJson<Piece>(jsonString);
-                GameObject madeObject = Instantiate(nameToObject[piece.name]);
-                madeObject.transform.position = piece.position;
+                GameObject madeObject = PhotonNetwork.Instantiate(nameToObject[piece.name].name, piece.position, Quaternion.identity);
                 madeObject.transform.parent = this.transform;
             }
             Debug.Log(loadFileInput.text);

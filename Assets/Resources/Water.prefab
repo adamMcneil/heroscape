@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64392419726052850}
   - component: {fileID: 2332643894095128912}
   - component: {fileID: 1432213963953472771}
+  - component: {fileID: -4643432084328555669}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -116,7 +117,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1432213963953472771}
@@ -156,3 +157,15 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &-4643432084328555669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729885142536322454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2d470e150f74c429b0e5d3f6486e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

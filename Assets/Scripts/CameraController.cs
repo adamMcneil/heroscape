@@ -139,7 +139,6 @@ public class CameraController : MonoBehaviourPun
                     {
                         if (hitObject.GetComponent<PhotonView>() != null)
                         {
-                            hitObject.GetComponent<PhotonView>().RequestOwnership();
                             hitObject.GetComponent<HexController>().DestroyHex();
                         }
                     }
@@ -156,9 +155,12 @@ public class CameraController : MonoBehaviourPun
                     if (hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card") || hitFigure.CompareTag("DamageCounter"))
                     {
                         selectedObject = hitFigure;
+                        hitFigure.GetComponent<PhotonView>().RequestOwnership();
+                        //Debug.Log(hitFigure.GetComponent<PhotonView>().IsMine);
                     }
                     else
                     {
+                       // Debug.Log(selectedObject.GetComponent<PhotonView>().IsMine);
                         selectedObject.transform.position = CalculateHexPosition(ShotRayVector3());
                         selectedObject = null;
                     }

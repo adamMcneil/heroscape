@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Photon.Pun;
+using static UnityEngine.UI.CanvasScaler;
 
-public class CardController : MonoBehaviour
+public class CardController : MonoBehaviourPun
 {
     private string fileEndding = "-1";
 
@@ -13,9 +14,24 @@ public class CardController : MonoBehaviour
 
     [SerializeField] private GameObject figurePrefab;
 
-    public void SetUnit(Unit unit)      
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Equals)) 
+        {
+            photonView.RPC("SyncPicureRPC", RpcTarget.All, JsonUtility.ToJson(myUnit));
+        }
+    }
+
+    public void SetUnitServer(Unit unit)
     {
         myUnit = unit;
+        photonView.RPC("SyncPicureRPC", RpcTarget.All, JsonUtility.ToJson(unit));
+        LoadUnit();
+    }
+
+    public void SetUnit(string unit)      
+    {
+        myUnit = JsonUtility.FromJson<Unit>(unit);
         LoadUnit();
     }
 
@@ -44,8 +60,14 @@ public class CardController : MonoBehaviour
     private void SpawnFigure(string path)
     {
         GameObject figureInstant = PhotonNetwork.Instantiate(figurePrefab.name, this.transform.position, Quaternion.identity);
-        figureInstant.transform.SetParent(this.transform);
-        figureInstant.GetComponent<FigureController>().LoadPath(path, myUnit.general, 1);
+        figureInstant.GetComponent<FigureController>().LoadPath(path, myUnit.general, transform.position);
+    }
+
+
+    [PunRPC]
+    void SyncPicureRPC(string unit)
+    {
+       SetUnit(unit);
     }
 
 }

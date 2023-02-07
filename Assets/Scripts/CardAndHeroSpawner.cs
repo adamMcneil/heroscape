@@ -28,7 +28,7 @@ public class CardAndHeroSpawner : MonoBehaviour
         foreach (Unit unit in units.units)
         {
             GameObject cardInstant = PhotonNetwork.Instantiate(cardPrefab.name, cardPosition, cardPrefab.transform.rotation);
-            cardInstant.GetComponent<CardController>().SetUnit(unit);
+            cardInstant.GetComponent<CardController>().SetUnitServer(unit);
             //cardInstant.transform.SetParent(this.transform);
 
             IncrementCardPosition();
@@ -44,6 +44,7 @@ public class CardAndHeroSpawner : MonoBehaviour
             cardPosition = new Vector3(0, 0, cardPosition.z + cardHieght);
         }
     }
+
 }
 
 [System.Serializable]
