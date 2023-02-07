@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Photon.Pun;
 
 public class CardController : MonoBehaviour
 {
@@ -42,9 +43,9 @@ public class CardController : MonoBehaviour
 
     private void SpawnFigure(string path)
     {
-        GameObject figureInstant = Instantiate(figurePrefab);
+        GameObject figureInstant = PhotonNetwork.Instantiate(figurePrefab.name, this.transform.position, Quaternion.identity);
         figureInstant.transform.SetParent(this.transform);
-        figureInstant.transform.localPosition = Vector3.zero;
         figureInstant.GetComponent<FigureController>().LoadPath(path, myUnit.general, 1);
     }
+
 }

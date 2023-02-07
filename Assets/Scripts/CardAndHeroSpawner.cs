@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class CardAndHeroSpawner : MonoBehaviour
 {
@@ -16,26 +17,19 @@ public class CardAndHeroSpawner : MonoBehaviour
     private int numberInRow = 10;
     private Vector3 cardPosition = new Vector3(0,0,0);
 
-    void Start()
-    {
-        MakeUnitArray();
-        MakeCardsOnBoard();
-    }
-
     private void MakeUnitArray()
     {
         units = JsonUtility.FromJson<Units>(jsonFile.text);
     }
 
-    private void MakeCardsOnBoard()
+    public void MakeCardsOnBoard()
     {
-
+        MakeUnitArray();
         foreach (Unit unit in units.units)
         {
-            GameObject cardInstant = Instantiate(cardPrefab);
+            GameObject cardInstant = PhotonNetwork.Instantiate(cardPrefab.name, cardPosition, cardPrefab.transform.rotation);
             cardInstant.GetComponent<CardController>().SetUnit(unit);
-            cardInstant.transform.position = cardPosition;
-            cardInstant.transform.SetParent(this.transform);
+            //cardInstant.transform.SetParent(this.transform);
 
             IncrementCardPosition();
 

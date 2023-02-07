@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviourPun
 {
     private Camera thisCamera;
 
@@ -24,7 +25,6 @@ public class CameraController : MonoBehaviour
     private float rotationSpeed = 0.5f;
 
 // Pointer  
-    [SerializeField] private GameObject pointer;
     [SerializeField] private LayerMask layerMask;
 
 // Spawnable prefabs
@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private GameObject tree;
 
 
-    [SerializeField] private GameObject level; // The GameObject where all the stuff is spawned
+    private GameObject level; // The GameObject where all the stuff is spawned
 
     private GameObject selectedHex;
     private GameObject selectedObject;
@@ -53,158 +53,172 @@ public class CameraController : MonoBehaviour
     static public bool isBuilding = false;
 
     // Menus
-    [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject playerOneCanvas;
-    [SerializeField] private GameObject playerTwoCanvas;
+    private GameObject pauseMenu;
+
+    private GameObject cardMaker;
 
 
     private void Start()
     {
-        currentSpeed = slowSpeed;
-        pauseMenu.SetActive(isPaused);
-        selectedHex = hex;
-        hexToSquare = new Vector3(0.5f, 0, 0.5f * squareRoot3);
-        squareToHex = new Vector3(-1/squareRoot3, 0, 2f / squareRoot3);
-        Cursor.lockState = CursorLockMode.Locked;
-        thisCamera = GetComponent<Camera>();
+        if (photonView.IsMine)
+        {
+            level = GameObject.Find("Level");
+            pauseMenu = GameObject.Find("Pause Canvas");
+            thisCamera = GameObject.Find("Camera").GetComponent<Camera>();
+            cardMaker = GameObject.Find("CardAndHeroSpawner");
+
+            currentSpeed = slowSpeed;
+            pauseMenu.SetActive(isPaused);
+            selectedHex = hex;
+            hexToSquare = new Vector3(0.5f, 0, 0.5f * squareRoot3);
+            squareToHex = new Vector3(-1/squareRoot3, 0, 2f / squareRoot3);
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        if (photonView.ViewID == 1001 && photonView.IsMine)
+        {
+            cardMaker.GetComponent<CardAndHeroSpawner>().MakeCardsOnBoard();
+        }
     }
 
     private void Update()
     {
-
-        //// boost /////
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            if (currentSpeed == slowSpeed)
+        if (photonView.IsMine) { 
+            //// boost /////
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                currentSpeed = fastSpeed;
-            }
-            else
-            {
-                currentSpeed = slowSpeed;
-            }
-        }
-        //// movement ////
-        forward = Convert.ToSingle(Input.GetKey(KeyCode.W));
-        back = -Convert.ToSingle(Input.GetKey(KeyCode.S));
-        up = Convert.ToSingle(Input.GetKey(KeyCode.E));
-        down = -Convert.ToSingle(Input.GetKey(KeyCode.Q));
-        right = Convert.ToSingle(Input.GetKey(KeyCode.D));
-        left = -Convert.ToSingle(Input.GetKey(KeyCode.A));
-
-        this.transform.position = this.transform.position
-        + (this.transform.forward * (forward + back)
-        + this.transform.up * (up + down) 
-        + this.transform.right * (right + left)) 
-        * (currentSpeed * Time.deltaTime);
-
-        //// rotaion ////
-        if (!isPaused)
-        {
-            rotationX += -Input.GetAxis("Mouse Y") * rotationSpeed;
-            rotationY += Input.GetAxis("Mouse X") * rotationSpeed;
-
-            this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
-        }
-
-        //// pointer ////
-        Vector2 centerScreenPosition = new Vector2(Screen.width / 2, Screen.height / 2);
-        Ray ray = thisCamera.ScreenPointToRay(centerScreenPosition);
-        if (Physics.Raycast(ray, out RaycastHit rayCastHit, float.MaxValue, layerMask))
-        {
-            pointer.transform.position = rayCastHit.point;
-        }
-
-        //// make raycast ////
-        if (Input.GetMouseButtonDown(0) && !isPaused && isBuilding)
-        {
-            Instantiate(selectedHex, CalculateHexPosition(ShotRayVector3()), Quaternion.identity).transform.parent = level.transform;
-        }
-
-        //// destroy raycast ////
-
-        if (Input.GetMouseButtonDown(1) && !isPaused)
-        {
-            GameObject hitObject = ShotRayGameObject();
-            try
-            {
-                if (!hitObject.CompareTag("Floor"))
+                if (currentSpeed == slowSpeed)
                 {
-                    Destroy(hitObject);
-                }
-            }
-            catch { }
-        }
-
-        //// pick up raycast ////
-        if (Input.GetMouseButtonDown(0) && !isPaused && !isBuilding)
-        {
-            GameObject hitFigure = ShotRayGameObject();
-            try
-            {
-                if (hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card") || hitFigure.CompareTag("DamageCounter"))
-                {
-                    selectedObject = hitFigure;
+                    currentSpeed = fastSpeed;
                 }
                 else
                 {
-                    selectedObject.transform.position = CalculateHexPosition(ShotRayVector3());
-                    selectedObject = null;
+                    currentSpeed = slowSpeed;
                 }
             }
-            catch { selectedObject = null; }
-        }
 
-        //// rotate raycast ////
-        if (Input.GetKeyDown(KeyCode.R) && !isPaused)
-        {
-            GameObject hitFigure = ShotRayGameObject();
-            try
+            //// movement ////
+            forward = Convert.ToSingle(Input.GetKey(KeyCode.W));
+            back = -Convert.ToSingle(Input.GetKey(KeyCode.S));
+            up = Convert.ToSingle(Input.GetKey(KeyCode.E));
+            down = -Convert.ToSingle(Input.GetKey(KeyCode.Q));
+            right = Convert.ToSingle(Input.GetKey(KeyCode.D));
+            left = -Convert.ToSingle(Input.GetKey(KeyCode.A));
+
+            this.transform.position = this.transform.position
+            + (this.transform.forward * (forward + back)
+            + this.transform.up * (up + down)
+            + this.transform.right * (right + left))
+            * (currentSpeed * Time.deltaTime);
+
+            //// rotaion ////
+            if (!isPaused)
             {
-                if (hitFigure.CompareTag("Figure"))
+                rotationX += -Input.GetAxis("Mouse Y") * rotationSpeed;
+                rotationY += Input.GetAxis("Mouse X") * rotationSpeed;
+
+                this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
+            }
+            thisCamera.transform.position = this.transform.position;
+            thisCamera.transform.rotation = this.transform.rotation;
+
+
+            //// make raycast ////
+            if (Input.GetMouseButtonDown(0) && !isPaused && isBuilding)
+            {
+                PhotonNetwork.Instantiate(selectedHex.name, CalculateHexPosition(ShotRayVector3()), Quaternion.identity).transform.parent = level.transform;
+            }
+
+            //// destroy raycast ////
+
+            if (Input.GetMouseButtonDown(1) && !isPaused)
+            {
+                GameObject hitObject = ShotRayGameObject();
+                //try
+                //{
+                    if (!hitObject.CompareTag("Floor"))
+                    {
+                        if (hitObject.GetComponent<PhotonView>() != null)
+                        {
+                            hitObject.GetComponent<PhotonView>().RequestOwnership();
+                            hitObject.GetComponent<HexController>().DestroyHex();
+                        }
+                    }
+                //}
+                //catch { }
+            }
+
+            //// pick up raycast ////
+            if (Input.GetMouseButtonDown(0) && !isPaused && !isBuilding)
+            {
+                GameObject hitFigure = ShotRayGameObject();
+                try
                 {
-                    hitFigure.GetComponent<FigureController>().RotateFigure();
+                    if (hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card") || hitFigure.CompareTag("DamageCounter"))
+                    {
+                        selectedObject = hitFigure;
+                    }
+                    else
+                    {
+                        selectedObject.transform.position = CalculateHexPosition(ShotRayVector3());
+                        selectedObject = null;
+                    }
                 }
+                catch { selectedObject = null; }
             }
-            catch { }
-        }
 
-        //// make raycast ////
-        if (Input.GetKeyDown(KeyCode.M) && !isPaused)
-        {
-            GameObject hitCard = ShotRayGameObject();
-            try
+            //// rotate raycast ////
+            if (Input.GetKeyDown(KeyCode.R) && !isPaused)
             {
-                if (hitCard.CompareTag("Card"))
+                GameObject hitFigure = ShotRayGameObject();
+                try
                 {
-                    hitCard.GetComponent<CardController>().SpawnFigures();
+                    if (hitFigure.CompareTag("Figure"))
+                    {
+                        hitFigure.GetComponent<FigureController>().RotateFigure();
+                    }
                 }
+                catch { }
             }
-            catch { }
-        }
 
-        //// pause ////
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            isPaused = !isPaused;
-            if (isPaused)
+            //// make raycast ////
+            if (Input.GetKeyDown(KeyCode.M) && !isPaused)
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                GameObject hitCard = ShotRayGameObject();
+                try
+                {
+                    if (hitCard.CompareTag("Card"))
+                    {
+                        hitCard.GetComponent<CardController>().SpawnFigures();
+                    }
+                }
+                catch { }
             }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-            pauseMenu.SetActive(isPaused);
-        }
 
-        //// pause ////
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            isBuilding = !isBuilding;
+            //// pause ////
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                isPaused = !isPaused;
+                if (isPaused)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+                pauseMenu.SetActive(isPaused);
+            }
+
+            //// pause ////
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                isBuilding = !isBuilding;
+            }
         }
     }
+
+
 
     #region Hex Math
     private Vector3 CalculateHexPosition(Vector3 position)
@@ -246,13 +260,14 @@ public class CameraController : MonoBehaviour
 
     Vector3 ShotRayVector3()
     {
+        Vector3 returnPosition = Vector3.zero;
         Vector2 centerScreenPosition = new Vector2(Screen.width / 2, Screen.height / 2);
         Ray ray = thisCamera.ScreenPointToRay(centerScreenPosition);
         if (Physics.Raycast(ray, out RaycastHit rayCastHit, float.MaxValue, layerMask))
         {
-            pointer.transform.position = rayCastHit.point;
+            returnPosition = rayCastHit.point;
         }
-        return pointer.transform.position;
+        return returnPosition;
     }
 
     #endregion
