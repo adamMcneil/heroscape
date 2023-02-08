@@ -19,12 +19,12 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         //SceneManager.LoadScene("Lobby");
-        PhotonNetwork.CreateRoom("Hard Coded");
+        PhotonNetwork.CreateRoom("HardCoded");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        PhotonNetwork.JoinRoom("Hard Coded");
+        PhotonNetwork.JoinRoom("HardCoded");
         // base.OnCreateRoomFailed(returnCode, message);
     }
 
