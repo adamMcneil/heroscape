@@ -145,7 +145,7 @@ public class CameraController : MonoBehaviourPun
                 GameObject hitFigure = ShotRayGameObject();
                 try
                 {
-                    if (hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card") || hitFigure.CompareTag("DamageCounter"))
+                    if (hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card") || hitFigure.CompareTag("DamageCounter") || hitFigure.CompareTag("MoveMarker"))
                     {
                         selectedObject = hitFigure;
                         hitFigure.GetComponent<PhotonView>().RequestOwnership();
@@ -170,6 +170,10 @@ public class CameraController : MonoBehaviourPun
                     if (hitFigure.CompareTag("Figure"))
                     {
                         hitFigure.GetComponent<FigureController>().RotateFigure();
+                    }
+                    else if (hitFigure.CompareTag("MoveMarker"))
+                    {
+                        hitFigure.GetComponent<MoveMarkerController>().RotateMoveMarker();
                     }
                 }
                 catch { }
