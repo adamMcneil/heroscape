@@ -145,16 +145,21 @@ public class CameraController : MonoBehaviourPun
                 GameObject hitFigure = ShotRayGameObject();
                 try
                 {
-                    if (hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card") || hitFigure.CompareTag("DamageCounter") || hitFigure.CompareTag("MoveMarker"))
+                    if ((hitFigure.CompareTag("Figure") || hitFigure.CompareTag("Card") || hitFigure.CompareTag("DamageCounter") || hitFigure.CompareTag("MoveMarker")) && selectedObject == null)
                     {
                         selectedObject = hitFigure;
                         hitFigure.GetComponent<PhotonView>().RequestOwnership();
-                        //Debug.Log(hitFigure.GetComponent<PhotonView>().IsMine);
                     }
                     else
                     {
-                       // Debug.Log(selectedObject.GetComponent<PhotonView>().IsMine);
-                        selectedObject.transform.position = CalculateHexPosition(ShotRayVector3());
+                        if (selectedObject.CompareTag("DamageCounter"))
+                        {
+                            selectedObject.transform.position = ShotRayVector3() + (Vector3.up*0.0f);
+                        }
+                        else
+                        {
+                            selectedObject.transform.position = CalculateHexPosition(ShotRayVector3());
+                        }
                         selectedObject = null;
                     }
                 }
@@ -191,6 +196,13 @@ public class CameraController : MonoBehaviourPun
                     }
                 }
                 catch { }
+            }
+
+            //// make raycast ////
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                PhotonNetwork.Instantiate("Ping", ShotRayVector3(), Quaternion.identity);
+
             }
 
             //// pause ////

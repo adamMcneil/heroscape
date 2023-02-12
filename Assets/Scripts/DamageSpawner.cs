@@ -1,31 +1,22 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class DamageSpawner : MonoBehaviour
+public class DamageSpawner : MonoBehaviourPun
 {
-
-    public GameObject DamageToken;
-    // Start is called before the first frame update
     void Start()
     {
-      for (int i = 0; i < 100; i++)
-      {
-        StartCoroutine(ExampleCoroutine());
-        GameObject dmgToken = Instantiate(DamageToken);
-        dmgToken.transform.position = this.transform.position;
-      }
+        for (int i = 0; i < 15; i++)
+        {
+            StartCoroutine(ExampleCoroutine());
+            GameObject dmgToken = PhotonNetwork.Instantiate("DamageCounter", this.transform.position, Quaternion.identity);
+        }
     }
 
-      IEnumerator ExampleCoroutine()
+    IEnumerator ExampleCoroutine()
     {
-        //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
-
-        //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds((float) .2);
-
-        //After we have waited 5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 }
