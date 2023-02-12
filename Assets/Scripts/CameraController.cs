@@ -88,6 +88,12 @@ public class CameraController : MonoBehaviourPun
                     currentSpeed = slowSpeed;
                 }
             }
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+              thisCamera.fieldOfView = 10f;
+            } else { 
+              thisCamera.fieldOfView = 60;          
+            }
 
             //// movement ////
             forward = Convert.ToSingle(Input.GetKey(KeyCode.W));
